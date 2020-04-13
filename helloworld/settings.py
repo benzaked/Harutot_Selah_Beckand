@@ -26,13 +26,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'matxp6k!wbkmdlk)97)ew2qr%&9nr=n#v_-+v#yel4^r&czf7q'
+SECRET_KEY = os.environ.get('django_secret')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 # A list of strings representing the host/domain names that this Django site can serve.
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','powerful-hollows-52682.herokuapp.com']
 
 
 # Application definition

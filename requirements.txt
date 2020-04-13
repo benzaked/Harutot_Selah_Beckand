@@ -1,2 +1,5 @@
 # requirements.txt file
 Django==2.2.3
+gunicorn==20.0.4
+pytz==2019.3
+sqlparse==0.3.1

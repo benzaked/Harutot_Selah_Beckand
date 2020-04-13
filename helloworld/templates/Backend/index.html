@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+
+<html>
+<head>  
+        <meta charset="UTF-8">
+        <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services --> 
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>    
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+
+<!--        <script src="script.js"></script>-->
+        <script type="text/javascript" src="/static/scritps/script.js"></script>
+
+<!--        <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css"/>-->
+
+</head>
+<body>
+<div class="container">
+<h1 id="title">עדכון אפליקציית חרותות</h1>
+  <div id="stories">
+      <a href="/admin/logout/">Log out</a>
+    <div id="quizes"> 
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <td> אתר</td><td> סיפור</td><td>עריכה</td>
+      </tr>
+    </thead>
+  
+  <tbody id="table_body"> </tbody>
+</table>
+</div>
+</body>
+</html>

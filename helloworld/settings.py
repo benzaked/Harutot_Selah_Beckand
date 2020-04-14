@@ -17,7 +17,7 @@ STATIC_URL = '/static/'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "helloworld/static/"),
+    os.path.join(BASE_DIR, "helloworld/"),
     # '/var/www/static/',
     #'/templates/static'
 ]
@@ -27,9 +27,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = (os.environ.get('SECRET_KEY') == 'True')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+DEBUG = (os.environ.get('DEBUG_VALUE') == "True")
 
 # A list of strings representing the host/domain names that this Django site can serve.
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost','powerful-hollows-52682.herokuapp.com']

@@ -3,7 +3,7 @@ body{
     direction: rtl;
     padding: 0px;
     margin: 0px;
-    background-image:url('background.jpg');
+    background-image:url('har.jpg');
     background-position:center;background-repeat:no-repeat;
     background-attachment:fixed;background-size:cover;
 }
@@ -14,7 +14,14 @@ body{
     top: 70px;
     right: 8%;
 }
+.qui{
+  background-color: rgb(226, 213, 213,0.7);
+}
 
+.f{
+  background-color: rgb(226, 213, 213,0.7);
+  padding: 5px;
+}
 .title{
     font-weight: bold;
     position: center;
@@ -28,7 +35,9 @@ table {
   }
   
   td, th {
-    border: 1px solid black;
+    background-color: rgb(226, 213, 213,0.7);
+
+   border: 1px solid rgba(233, 141, 141, 0.685);
     text-align: right;
     padding: 8px;
   }
@@ -47,3 +56,24 @@ table {
     border: 1px solid #5d8ffc;
     cursor: pointer;
   }
+
+.All{
+  background-color: rgb(226, 213, 213,0.7);
+  border: 1px solid black;
+  padding: 2px;
+
+}
+
+
+
+.Q{
+ color: red;
+}
+.UpdateData{
+  position:fixed;
+}
+
+.quizContent{
+
+  width:100px;
+}

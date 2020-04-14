@@ -20,5 +20,8 @@ from helloworld import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Hello, world!
-    path('', views.index, name='index')
+    path('', views.index, name='index'),
+    path('InsertQuiz/', views.InsertQuiz, name='InsertQuiz'),
+    path('Quizes', views.Quizes, name='Quizes')
+
 ]

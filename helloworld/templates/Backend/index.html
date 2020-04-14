@@ -1,7 +1,5 @@
-{% load static %}
 
 <!DOCTYPE HTML>
-
 <html>
 <head>  
         <meta charset="UTF-8">
@@ -18,16 +16,15 @@
         <link rel="stylesheet" type="text/css" href="/static/css/main.css">
 
 <!--        <script src="script.js"></script>-->
-        <script type="text/javascript" src="/static/scritps/script.js"></script>
-
+        <script type="text/javascript" src="/static/scripts/script.js"></script>
 
 </head>
 <body>
 <div class="container">
 <h1 id="title">עדכון אפליקציית חרותות</h1>
+    <a href="/admin/logout/">Log out</a>
   <div id="stories">
-      <a href="/admin/logout/">Log out</a>
-    <div id="quizes">
+    <div id="quizes"> 
     </div>
   </div>
   <table>
@@ -39,6 +36,9 @@
   
   <tbody id="table_body"> </tbody>
 </table>
+<br>
+<a href="/InsertQuiz/" target='blank'><button>הוסף חידה</button></a>
+<button onclick=update()>עדכן נתונים</button>
 </div>
 </body>
 </html>

@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>  
+        <meta charset="UTF-8">
+        <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services --> 
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>    
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link href="/static/css/menuN.css" rel="stylesheet" type="text/css"/>
+
+        <script type="text/javascript" src="/static/scripts/script.js"></script>
+        <link href="/static/css/main.css" rel="stylesheet" type="text/css"/>
+      </head>
+      <header>
+          <div class="logo">
+              <img src= "https://firebasestorage.googleapis.com/v0/b/finalprojectrn.appspot.com/o/backend%2Flog.png?alt=media&token=ac60a359-01e3-4fca-9cca-4980ee7e1ea6" height="49" />
+          </div>
+          <nev>
+        <ul>
+          <li class="menu"><a href="" > עמוד הבית</a></li>
+          <li class="menu"><a href="Home" >פתיח</a></li>
+        <li class="menu"><a href="Story" >סיפורים</a></li>
+        <li class="menu"><a href="Quizes" >עדכון חידות</a>
+                          <ul>
+                      <li><a href="Quizes?1" >חידות אתר 1</a></li>
+                      <li><a href="Quizes?2" >חידות אתר 2</a></li>
+                      <li><a href="Quizes?3" > חידות אתר 3</a></li>
+                      <li><a href="Quizes?4" >חידות אתר 4</a></li>
+                      <li><a href="Quizes?5" >חידות אתר 5</a></li>
+                      <li><a href="Quizes?6" >חידות אתר 6</a></li>
+                      <li><a href="Quizes.7" >חידות אתר 7</a></li>
+                  </ul> </li>
+          <li class="menu"><a href="insertQuiz" >הוספת חידה</a></li>
+          <li class="menu"></li>
+
+
+</ul>
+</nev></header>
+
+<body>
+<div class="container">
+<h1 id="title">עדכון פתיח</h1>
+  <div id="Home">
+    <script>
+    var database2 = firebase.database().ref('HomePage')
+    database2.on('value', (snap1) => {
+    snap1.forEach((child) => {
+   Home.innerHTML= Home.innerHTML+"<div class='All'><p calss='S'>פתיח: <br><textarea id='indro' style='width:95%; height:120px'>"+child.val().introduction+"</textarea></p>"
+    +"<p class='ST'>"+"רקע : <br>"+"<textarea id='about'style='width:95%; height:120px'>"+child.val().about+"</textarea></p>"+
+    "<p clss='but'> <button onclick='updateH()'> עדכן נתונים</button></p></div><br></br>" 
+    })
+    })
+
+    function updateH(){
+        // debugger;  
+        var indro = document.getElementById("indro").value;
+        var about = document.getElementById("about").value;
+        if(indro!=""&&about!=""){
+        firebase.database().ref('/HomePage/' + 1 ).set({
+            about:about,
+            introduction:indro
+            
+        })
+    alert('הנתונים עודכנו בהצלחה');
+    window.location.reload();
+  } 
+  else{
+    alert('יש למלא את כל השדות');
+
+  }
+    }
+  </script>
+  </div>
+<br>
+</div>
+</body>
+</html>

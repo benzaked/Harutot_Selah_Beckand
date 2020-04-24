@@ -12,56 +12,50 @@ var config = {
 };
   firebase.initializeApp(config);
 
-var database1 = firebase.database().ref().child('Stories')//stories
-var numS = 0//number of story
 
-database1.on("child_added", snap=>{
-  if(typeof jQuery!=='undefined'){
-    console.log('jQuery Loaded');
-}
-else{
-    console.log('not loaded yet');
-}
-  var s =snap.child("story").val();
-  var T =snap.child("storyTitle").val();
-
-  var n =snap.child("numberOfSite").val();
-
-  /*database.on('value', (dataSnapshot) => {
-    dataSnapshot.forEach((child) => {
-
-      if (child.val().numberOfSite == n ){
-        console.log(child.val().Answer1)
-      }
-
+  function update(QuizeID){
+    // debugger;
+    var numberOfSite = NumOfSite;      
+    var quizContent = document.getElementById("quizContentQ").value;
+    var Answer1 = document.getElementById("Answer1Q").value;
+    var Answer2 = document.getElementById("Answer2Q").value;
+    var Answer3 = document.getElementById("Answer3Q").value;
+    var Answer4 = document.getElementById("Answer4Q").value;
+    var RightAnswerNum = document.getElementById("RightAnswerNumQ").value;
+    firebase.database().ref('/Quizes/' + QuizeID ).set({
+        QuizeID:QuizeID,
+        numberOfSite:numberOfSite,
+        QuizeContent:quizContent,
+        Answer1:Answer1,
+        Answer2:Answer2,
+        Answer3:Answer3,
+        Answer4:Answer4,
+        RightAnswerNum:3
     })
-  })*/
-  console.log(s);
+alert('החידה עודכנה בהצלחה');
+window.location.reload();
 
-  numS=numS+1
-  $("#table_body").append("<tr id=story"+numS+"><td>"+numS+"</td><td><textarea>"+T+
-  "</textarea><br><textarea>"+s+"</textarea></td>"+"<td><a href='\Quizes\?"+numS+"'"+"target='blank'><button>לחידות אתר "+numS+"</button></a></td></tr>"
-  )
-  
-});
+}
+
 
 // function insert(){
 //  var ddd=document.getElementById("Answer1").value;
 //   alert("this: "+ddd);
 // }
-// function insert(){
-//   firebase.database().ref('Quizes').set({
-//    QuizContent="1",
-//    Answer1="2",
-//    Answer2="2",
-//    Answer3="2",
-//    Answer4="2",
-//    RightAnswerNumber="2",
-//    NumberOfSite="2"
-   
-//   })
+/*function insert(){
+  ID = Date.now()
+  firebase.database().ref('/Quizes/' + ID ).set({
+    QuizeID:ID,
+    numberOfSite:3,
+    QuizeContent :"כמה בולבולים טל אוהבת",
+    Answer1:"1",
+    Answer2:"2",
+    Answer3:"70",
+    Answer4:"0",
+    RightAnswerNum:3
+  })
  
-//  }
+ }*/
 
 // function insert(){
 //   firebase.database().ref('Quizes').set({

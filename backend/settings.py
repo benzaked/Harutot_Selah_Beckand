@@ -17,7 +17,7 @@ STATIC_URL = '/static/'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "helloworld/"),
+    os.path.join(BASE_DIR, "backend/"),
     # '/var/www/static/',
     #'/templates/static'
 ]
@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost','powerful-hollows-52682.herokuapp.com'
 # Application definition
 
 INSTALLED_APPS = [
-    'helloworld',
+    'backend',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'helloworld.urls'
+ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
     {
@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'helloworld.wsgi.application'
+WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 # Database

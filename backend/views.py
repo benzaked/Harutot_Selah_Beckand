@@ -35,3 +35,9 @@ def Home (request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % ('admin/login', request.path))
     return render_to_response('Backend/Home.html')
+
+
+def nav (request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % ('admin/login', request.path))
+    return render_to_response('Backend/nav.html')

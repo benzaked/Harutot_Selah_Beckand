@@ -25,6 +25,8 @@ urlpatterns = [
     path('Story', views.Story, name='Story'),
     path('insertQuiz', views.insertQuiz, name='insertQuiz'),
     path('Home', views.Home, name='Home'),
+    path('nav', views.nav, name='nav'),
+
 
 
 

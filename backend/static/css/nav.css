@@ -7,7 +7,7 @@ header {
 	top: 0;
 	left: 0;
    z-index: 999;/*כדי שהתפריט תיהיה קדמית*/
-    /* position: fixed; */
+    position: fixed;
 	/* background-color: rgb(165, 158, 158); */
     background-image: url("https://firebasestorage.googleapis.com/v0/b/finalprojectrn.appspot.com/o/backend%2FM.jpg?alt=media&token=aad7fe19-e52c-4283-8c83-5fa05a3f5830");
 
@@ -19,8 +19,8 @@ header .logo {
 	float: left;
 	text-align:left;
 	/* left: 100px; */
-	left: 2%;
 	 margin-left:20px; 
+	 position: relative;
 }
 
 header .logo a{
@@ -107,9 +107,13 @@ header nav ul a{
 }
 @media (max-width: 991px)
 {
+	.logo{
+
+	}
 	header{
 		padding: 0 20px;
 		background-image:none;
+		position: static;
 	}
 	.menu-taggle{
 		display: block ;

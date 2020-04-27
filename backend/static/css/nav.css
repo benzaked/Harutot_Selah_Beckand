@@ -74,7 +74,7 @@ nav ul .menu ul li {
 header nav ul ul {
 position: absolute;
 padding: 0;
-padding-top: 7%;
+/* padding-top: 7%; */
 visibility:hidden;
 
 
@@ -147,7 +147,7 @@ header nav ul a{
 		display: block;
 		list-style:none; padding: 5px 20px; margin: 5px 10px;
 		/* float: left; */
-		padding-top: 30%;
+		padding-top: 49px;
 	}
 }
 /* .show-menu-btn,.hide-menu-btn{

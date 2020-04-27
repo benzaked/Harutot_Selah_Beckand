@@ -50,7 +50,7 @@ header nav ul .menu {
 	line-height: 49px;
 	vertical-align: middle;
 	text-align: center;
-	/* float:right; */
+	float:right;
 	border-right: 1px solid #CCC;
 	position: relative;
 	width: 90px;
@@ -65,6 +65,8 @@ nav ul .menu ul li {
 	height: 40px;
     width: 90px;
 	border-top: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+
 	/* background-color: rgb(158, 149, 149); */
     background-image: url("https://firebasestorage.googleapis.com/v0/b/finalprojectrn.appspot.com/o/backend%2FM.jpg?alt=media&token=aad7fe19-e52c-4283-8c83-5fa05a3f5830");
 
@@ -74,9 +76,10 @@ nav ul .menu ul li {
 header nav ul ul {
 position: absolute;
 padding: 0;
+text-align: center;
 /* padding-top: 7%; */
 visibility:hidden;
-
+border-top: 1px solid #CCC;
 
     }
 

@@ -16,6 +16,8 @@
 
         <script type="text/javascript" src="/static/scripts/script.js"></script>
         <link href="/static/css/main.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/css/nav.css" rel="stylesheet" type="text/css"/>
+
 
     </head>
 </head>
@@ -63,10 +65,10 @@
     
 
     function update(QuizeID,NumOfSite){
-        // debugger;
-        var numberOfSite = NumOfSite;      
+        var numberOfSite = NumOfSite;
+        var Answer1 = document.getElementById("Answer1"+QuizeID+"").value;      
         var quizContent = document.getElementById("quizContent"+QuizeID+"").value;
-        var Answer1 = document.getElementById("Answer1"+QuizeID+"").value;
+        
         var Answer2 = document.getElementById("Answer2"+QuizeID+"").value;
         var Answer3 = document.getElementById("Answer3"+QuizeID+"").value;
         var Answer4 = document.getElementById("Answer4"+QuizeID+"").value;
@@ -84,7 +86,7 @@
             Answer4:Answer4,
             RightAnswerNum:3
         }).then(function onSuccess(res) {
-    window.location.href = "Quizes.html?"+NumOfSite;
+    window.location.href = "Quizes?"+NumOfSite;
   })
     alert('החידה עודכנה בהצלחה');
     }

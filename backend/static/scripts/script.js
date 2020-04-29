@@ -13,29 +13,29 @@ var config = {
   firebase.initializeApp(config);
 
 
-  function update(QuizeID){
-    // debugger;
-    var numberOfSite = NumOfSite;      
-    var quizContent = document.getElementById("quizContentQ").value;
-    var Answer1 = document.getElementById("Answer1Q").value;
-    var Answer2 = document.getElementById("Answer2Q").value;
-    var Answer3 = document.getElementById("Answer3Q").value;
-    var Answer4 = document.getElementById("Answer4Q").value;
-    var RightAnswerNum = document.getElementById("RightAnswerNumQ").value;
-    firebase.database().ref('/Quizes/' + QuizeID ).set({
-        QuizeID:QuizeID,
-        numberOfSite:numberOfSite,
-        QuizeContent:quizContent,
-        Answer1:Answer1,
-        Answer2:Answer2,
-        Answer3:Answer3,
-        Answer4:Answer4,
-        RightAnswerNum:3
-    })
-alert('החידה עודכנה בהצלחה');
-window.location.reload();
+//   function update(QuizeID){
+//     // debugger;
+//     var numberOfSite = NumOfSite;      
+//     var quizContent = document.getElementById("quizContentQ").value;
+//     var Answer1 = document.getElementById("Answer1Q").value;
+//     var Answer2 = document.getElementById("Answer2Q").value;
+//     var Answer3 = document.getElementById("Answer3Q").value;
+//     var Answer4 = document.getElementById("Answer4Q").value;
+//     var RightAnswerNum = document.getElementById("RightAnswerNumQ").value;
+//     firebase.database().ref('/Quizes/' + QuizeID ).set({
+//         QuizeID:QuizeID,
+//         numberOfSite:numberOfSite,
+//         QuizeContent:quizContent,
+//         Answer1:Answer1,
+//         Answer2:Answer2,
+//         Answer3:Answer3,
+//         Answer4:Answer4,
+//         RightAnswerNum:3
+//     })
+// alert('החידה עודכנה בהצלחה');
+// window.location.reload();
 
-}
+// }
 
 
 // function insert(){

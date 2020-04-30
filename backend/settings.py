@@ -42,6 +42,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost','powerful-hollows-52682.herokuapp.com'
 
 INSTALLED_APPS = [
     'backend',
+    'favicon',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

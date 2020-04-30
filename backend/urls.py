@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
 from . import views
 admin.site.site_header = "אתר ניהול אפליקצית חרתות סלע"
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^', include('favicon.urls')),
     path('logout/', views.logout),
     path('', views.index, name='index'),
     path('InsertQuiz/', views.InsertQuiz, name='InsertQuiz'),

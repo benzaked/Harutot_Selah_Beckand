@@ -12,6 +12,8 @@
         <!-- Add Firebase products that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
         <script type="text/javascript" src="/static/scripts/script.js"></script>
@@ -42,23 +44,101 @@
         var NumOfSite =queryString.substring(1);
         titleQ.innerHTML="עריכת חידות עבור אתר "+NumOfSite;
         var database = firebase.database().ref('Quizes')
-        var NumOfQuiz=0
+        var NumOfQuiz=0;
+
+
+        function hide_image(image,QuizeID){
+
+            $('#'+ QuizeID).hide()
+
+        }
+        function change_image (image,QuizeID) {
+            $('#'+ QuizeID).attr("src", image);
+            console.log('whats up')
+            $('#'+ QuizeID).load(location.href + " "+'#'+ QuizeID)
+
+        }
+
+        function uploadFile(image,QuizeID) {
+
+        const self = this;
+        self.fileupoad = false;
+        if(image != undefined){
+        let old_img = firebase.storage().refFromURL(image);
+        old_img.delete();
+        }
+      // Created a Storage Reference with root dir
+      var storageRef = firebase.storage().ref('Quizzes_media/');
+      // Get the file from DOM
+      var file = document.getElementById("files"+ QuizeID).files[0];
+      console.log(file);
+
+      //dynamically set reference to the file name
+      var thisRef = storageRef.child(file.name);
+
+      //put request upload file to firebase storage
+
+      var uploadTask = thisRef.put(file);
+      uploadTask.on('state_changed', function(snapshot){
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log('Upload is running');
+          break;
+      }
+    }, function(error) {
+      // Handle unsuccessful uploads
+    }, function() {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          self.done = true
+
+      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        console.log('File available at', downloadURL);
+        self.downloadIRL = downloadURL;
+        self.fileupoad=true;
+        console.log('fileupoad', fileupoad);
+        change_image(downloadURL,QuizeID);
+      });
+    });
+    }
+
     database.on('value', (dataSnapshot) => {
      dataSnapshot.forEach((child) => {
         
     if (child.val().numberOfSite == NumOfSite ){
         
       console.log(child.val().QuizeContent)
-      QuizeID = child.val().QuizeID
+      QuizeID = child.val().QuizeID;
+      console.log(QuizeID)
+      image = child.val().image;
+
+
       NumOfQuiz=NumOfQuiz+1
-      qui.innerHTML= qui.innerHTML+"<div class='All'><p calss='Q'>"+"<h2>שאלה "+NumOfQuiz+"</h2><textarea style='width:95%; height:70px' id='quizContent"+QuizeID+"'>"+child.val().QuizeContent+"</textarea></p>"
+      qui.innerHTML= qui.innerHTML+"<div class='All'><p calss='Q'>"+"<h2>שאלה "+NumOfQuiz+"</h2><textarea style='width:95%; height:70px' id='quizContent"+QuizeID+"'>"+child.val().QuizeContent+"</textarea>" +
+            "<img style='width:70%; height:70%' id='"+QuizeID+"' src="+image +">" +
+
+
+
+          "</p>"
+          + "<p class='A'> "+"העלה תמונה: "+"<input type='file' onchange=" + 'uploadFile(image,QuizeID)' +" id='files" +QuizeID+"' name='multiple' />"
       +"<p class='A'>"+"תשובה 1: "+"<br><textarea style='width:95%; height:20px' id='Answer1"+QuizeID+"'>"+child.val().Answer1+"</textarea></p>"+
       "<p class='A'>"+"תשובה 2: "+"<br><textarea style='width:95%; height:20px' id='Answer2"+QuizeID+"'>"+child.val().Answer2+"</textarea></p>"+
       "<p class='A'>"+"תשובה 3: "+"<br><textarea style='width:95%; height:20px' id='Answer3"+QuizeID+"'>"+child.val().Answer3+"</textarea></p>"+
       "<p class='A'>"+"תשובה 4: "+"<br><textarea style='width:95%; height:20px' id='Answer4"+QuizeID+"'>"+child.val().Answer4+"</textarea></p>"+
       "<p class='c'>"+"התשובה הנכונה: "+"<br><textarea style='width:95%; height:20px'  id='RightAnswerNum"+QuizeID+"'>"+child.val().RightAnswerNum+"</textarea></p>"+
      "<p clss='but'> <button  onclick='update("+QuizeID+","+NumOfSite+")'>עדכן חידה</button> <button onclick='deleteQ("+QuizeID+")'>מחק חידה</button></p>"+
-     "</div><br><br>"
+     "</div><br><br>";
+      if(image == undefined){
+                  hide_image(image,QuizeID);
+              };
     }
   })
 })
@@ -66,36 +146,48 @@
 
     function update(QuizeID,NumOfSite){
         var numberOfSite = NumOfSite;
-        var Answer1 = document.getElementById("Answer1"+QuizeID+"").value;      
+        var Answer1 = document.getElementById("Answer1"+QuizeID+"").value;
         var quizContent = document.getElementById("quizContent"+QuizeID+"").value;
         
         var Answer2 = document.getElementById("Answer2"+QuizeID+"").value;
         var Answer3 = document.getElementById("Answer3"+QuizeID+"").value;
         var Answer4 = document.getElementById("Answer4"+QuizeID+"").value;
         var RightAnswerNum = document.getElementById("RightAnswerNum"+QuizeID+"").value;
+        var downloadIRL = self.downloadIRL
         tal = (Answer4!="" && Answer3!=""&&Answer2!=""&&Answer1!=""&&quizContent!="")
         checkNum= (RightAnswerNum=="1"||RightAnswerNum=="2"||RightAnswerNum=="3"||RightAnswerNum=="4")
+        if (downloadIRL == undefined) {
+            downloadIRL = null;
+        }
         if(tal&&checkNum){
-        firebase.database().ref('/Quizes/' + QuizeID ).set({
-            QuizeID:QuizeID,
-            numberOfSite:numberOfSite,
-            QuizeContent:quizContent,
-            Answer1:Answer1,
-            Answer2:Answer2,
-            Answer3:Answer3,
-            Answer4:Answer4,
-            RightAnswerNum:3
-        }).then(function onSuccess(res) {
-    window.location.href = "Quizes?"+NumOfSite;
-  })
-    alert('החידה עודכנה בהצלחה');
-    }
-    else if(checkNum==false){
-        alert('יש למלא תשובה נכונה לחידה עם מספרים 1-4 בלבד');
-    }
-    else{
-        alert('יש למלא את כל השדות של השאלה כדי לעדכן');
-    }
+            if(self.fileupoad == false) {
+                window.setTimeout(update(QuizeID,NumOfSite), 100)
+            }
+            else{
+                firebase.database().ref('/Quizes/' + QuizeID ).set({
+                    QuizeID:QuizeID,
+                    numberOfSite:numberOfSite,
+                    QuizeContent:quizContent,
+                    Answer1:Answer1,
+                    Answer2:Answer2,
+                    Answer3:Answer3,
+                    Answer4:Answer4,
+                    RightAnswerNum:3,
+                    image: downloadIRL
+
+                }).then(function onSuccess(res) {
+                    window.location.href = "Quizes?"+NumOfSite;
+                })
+                alert('החידה עודכנה בהצלחה');
+            }
+            }
+            else if(checkNum==false){
+                alert('יש למלא תשובה נכונה לחידה עם מספרים 1-4 בלבד');
+            }
+            else{
+                alert('יש למלא את כל השדות של השאלה כדי לעדכן');
+            }
+
     }
 
     function deleteQ(QuizeID){

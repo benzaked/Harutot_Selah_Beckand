@@ -7,11 +7,13 @@
         <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebase/7.14.3/firebase-firestore.js"></script>
+
         <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
         <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>    
         <!-- Add Firebase products that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="/static/scripts/script.js"></script>
 
@@ -37,6 +39,9 @@
 <div class="All">
         <label for="quizContent">תוכן החידה: </label><br>
         <textarea id="quizContent" name="quizContent" placeholder="כתוב את השאלה כאן" style="width:95%; height:100px ;" required></textarea><br><br>
+        <label for="Answer3">העלה תמונה: </label>
+
+        <input type="file" onchange="uploadFile()" id="files" name="files[]" multiple /><br><br>
         <label for="Answer1">תשובה 1: </label>
         <input type="text" id="Answer1" name="Answer1" placeholder="כתוב את התשובה כאן" required style="width:86%; height:20px"><br><br>
 
@@ -61,6 +66,53 @@
     <br>
  
     <script>
+    //function to save file
+    function  uploadFile() {
+
+        const self = this;
+        self.fileupoad = false
+
+      // Created a Storage Reference with root dir
+      var storageRef = firebase.storage().ref('Quizzes_media/');
+      // Get the file from DOM
+      var file = document.getElementById("files").files[0];
+      console.log(file);
+
+      //dynamically set reference to the file name
+      var thisRef = storageRef.child(file.name);
+
+      //put request upload file to firebase storage
+
+      var uploadTask = thisRef.put(file);
+      uploadTask.on('state_changed', function(snapshot){
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log('Upload is running');
+          break;
+      }
+    }, function(error) {
+      // Handle unsuccessful uploads
+    }, function() {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          self.done = true
+
+      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        console.log('File available at', downloadURL);
+        self.downloadIRL = downloadURL;
+        self.fileupoad=true;
+        console.log('fileupoad', fileupoad);
+      });
+    });
+    }
 
     function insert2(){
 
@@ -71,23 +123,31 @@
         var Answer3 = document.getElementById("Answer3").value;
         var Answer4 = document.getElementById("Answer4").value;
         var RightAnswerNum = document.getElementById("RightAnswerNum").value;
+        var downloadIRL = self.downloadIRL
         ID = Date.now()
         tal = (Answer4!="" && Answer3!=""&&Answer2!=""&&Answer1!=""&&quizContent!=""&&numberOfSite!="")
+        if (downloadIRL == undefined) {
+            downloadIRL = null;
+        }
         if(tal){
-        Q=firebase.database().ref('/Quizes/' + ID ).set({
-            QuizeID:ID,
-            numberOfSite:numberOfSite,
-            QuizeContent:quizContent,
-            Answer1:Answer1,
-            Answer2:Answer2,
-            Answer3:Answer3,
-            Answer4:Answer4,
-            RightAnswerNum:RightAnswerNum
-        }).then(function onSuccess(res) {
-    window.location.href = "\insertQuiz";
-  })
-        alert('הפעולה בוצעה בהצלחה')
+            if(self.fileupoad == false ) {
+                window.setTimeout(insert2(), 1000)
             }
+            Q=firebase.database().ref('/Quizes/' + ID ).set({
+                QuizeID:ID,
+                numberOfSite:numberOfSite,
+                QuizeContent:quizContent,
+                Answer1:Answer1,
+                Answer2:Answer2,
+                Answer3:Answer3,
+                Answer4:Answer4,
+                RightAnswerNum:RightAnswerNum,
+                image: downloadIRL
+            }).then(function onSuccess(res) {
+            window.location.href = "\insertQuiz";
+          })
+                alert('הפעולה בוצעה בהצלחה')
+        }
        else{
         alert('יש למלא את כל השדות')
 

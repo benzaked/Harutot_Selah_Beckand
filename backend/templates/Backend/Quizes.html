@@ -117,7 +117,7 @@
         
       console.log(child.val().QuizeContent)
       QuizeID = child.val().QuizeID;
-      console.log(QuizeID)
+      console.log(QuizeID);
       image = child.val().image;
 
 
@@ -128,7 +128,7 @@
 
 
           "</p>"
-          + "<p class='A'> "+"העלה תמונה: "+"<input type='file' onchange=" + 'uploadFile(image,QuizeID)' +" id='files" +QuizeID+"' name='multiple' />"
+          + "<p class='A'> "+"העלה תמונה: "+"<input type='file' onchange=" + 'uploadFile(image,QuizeID)' +" id='files" +QuizeID+"' />"
       +"<p class='A'>"+"תשובה 1: "+"<br><textarea style='width:95%; height:20px' id='Answer1"+QuizeID+"'>"+child.val().Answer1+"</textarea></p>"+
       "<p class='A'>"+"תשובה 2: "+"<br><textarea style='width:95%; height:20px' id='Answer2"+QuizeID+"'>"+child.val().Answer2+"</textarea></p>"+
       "<p class='A'>"+"תשובה 3: "+"<br><textarea style='width:95%; height:20px' id='Answer3"+QuizeID+"'>"+child.val().Answer3+"</textarea></p>"+
@@ -157,8 +157,15 @@
         tal = (Answer4!="" && Answer3!=""&&Answer2!=""&&Answer1!=""&&quizContent!="")
         checkNum= (RightAnswerNum=="1"||RightAnswerNum=="2"||RightAnswerNum=="3"||RightAnswerNum=="4")
         if (downloadIRL == undefined) {
-            downloadIRL = null;
+            if (image != undefined){
+                downloadIRL = image
+            }
+            else {
+                downloadIRL = null;
+            }
         }
+
+
         if(tal&&checkNum){
             if(self.fileupoad == false) {
                 window.setTimeout(update(QuizeID,NumOfSite), 100)
@@ -172,7 +179,7 @@
                     Answer2:Answer2,
                     Answer3:Answer3,
                     Answer4:Answer4,
-                    RightAnswerNum:3,
+                    RightAnswerNum:RightAnswerNum,
                     image: downloadIRL
 
                 }).then(function onSuccess(res) {

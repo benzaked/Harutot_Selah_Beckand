@@ -56,6 +56,9 @@
             $('#'+ QuizeID).attr("src", image);
             console.log('whats up')
             $('#'+ QuizeID).load(location.href + " "+'#'+ QuizeID)
+            $('#'+ QuizeID).load(location.href + " "+'#'+ QuizeID)
+            $('#'+ QuizeID).show()
+
 
         }
 
@@ -63,7 +66,7 @@
 
         const self = this;
         self.fileupoad = false;
-        if(image != undefined){
+        if(image != null){
         let old_img = firebase.storage().refFromURL(image);
         old_img.delete();
         }
@@ -199,12 +202,30 @@
 
     function deleteQ(QuizeID){
         // debugger;
-        var DQ=firebase.database().ref('/Quizes/' + QuizeID );
+        var DQ=firebase.database().ref('/Quizes/' + QuizeID )
+        DQ.once("value", function (snapshot) {
+                let image = snapshot.val().image;
+                console.log("image is : " + image)
+                self.image_to_delete = image;
+                debugger;
+                if (image =! null ){
+                    console.log(self.image_to_delete)
+                    firebase.storage().refFromURL(self.image_to_delete).delete().then(function() {
+                        DQ.remove();
+                        alert('החידה נמחקה  מהנתונים');
+                        window.location.reload();
+                    }).catch(function(error) {
+                        DQ.remove();
+                        alert('החידה נמחקה  מהנתונים');
+                        window.location.reload();
+                    });
 
-        DQ.remove()
-   
-    alert('החידה נמחקה  מהנתונים');
-    window.location.reload();
+
+                }
+            });
+
+
+
 
     }
         </script> 

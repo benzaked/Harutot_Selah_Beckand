@@ -207,9 +207,7 @@
                 let image = snapshot.val().image;
                 console.log("image is : " + image)
                 self.image_to_delete = image;
-                debugger;
                 if (image =! null ){
-                    console.log(self.image_to_delete)
                     firebase.storage().refFromURL(self.image_to_delete).delete().then(function() {
                         DQ.remove();
                         alert('החידה נמחקה  מהנתונים');

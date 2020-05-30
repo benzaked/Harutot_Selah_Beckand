@@ -207,7 +207,8 @@
                 let image = snapshot.val().image;
                 console.log("image is : " + image)
                 self.image_to_delete = image;
-                if (image =! null ){
+                debugger
+                if (image != undefined ){
                     firebase.storage().refFromURL(self.image_to_delete).delete().then(function() {
                         DQ.remove();
                         alert('החידה נמחקה  מהנתונים');
@@ -219,6 +220,11 @@
                     });
 
 
+                }
+                else {
+                    DQ.remove();
+                    alert('החידה נמחקה  מהנתונים');
+                    window.location.reload();
                 }
             });
 

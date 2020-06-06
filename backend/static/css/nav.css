@@ -6,7 +6,7 @@ header {
 	float: left;
 	top: 0;
 	left: 0;
-   z-index: 999;/*כדי שהתפריט תיהיה קדמית*/
+	z-index: 999;/*כדי שהתפריט תיהיה קדמית*/
     position: fixed;
 	/* background-color: rgb(165, 158, 158); */
     background-image: url("https://firebasestorage.googleapis.com/v0/b/finalprojectrn.appspot.com/o/backend%2FM.jpg?alt=media&token=aad7fe19-e52c-4283-8c83-5fa05a3f5830");

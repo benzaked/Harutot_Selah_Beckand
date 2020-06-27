@@ -25,10 +25,10 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '43244232343243423424234234324dsaadsafasaf'
-# SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG =True
-# DEBUG = (os.environ.get('DEBUG_VALUE') == "True")
+# SECRET_KEY = '43244232343243423424234234324dsaadsafasaf'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+# DEBUG =True
+DEBUG = (os.environ.get('DEBUG_VALUE') == "True")
 
 
 # A list of strings representing the host/domain names that this Django site can serve.
